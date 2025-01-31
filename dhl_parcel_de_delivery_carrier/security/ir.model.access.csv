@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dhl_parcel_de_product_users,dhl.parcel.de.product,model_dhl_parcel_de_product,stock.group_stock_user,1,0,0,0
+access_dhl_parcel_de_product_admin,dhl.parcel.de.product,model_dhl_parcel_de_product,stock.group_stock_manager,1,1,1,1
+
+access_dhl_parcel_de_order_users,dhl.parcel.de.order,model_dhl_parcel_de_order,stock.group_stock_user,1,0,0,0
+access_dhl_parcel_de_order_admin,dhl.parcel.de.order,model_dhl_parcel_de_order,stock.group_stock_manager,1,1,1,1
+
+access_dhl_parcel_de_manifest_users,dhl.parcel.de.manifest,model_dhl_parcel_de_manifest,stock.group_stock_user,1,0,0,0
+access_dhl_parcel_de_manifest_admin,dhl.parcel.de.manifest,model_dhl_parcel_de_manifest,stock.group_stock_manager,1,1,1,1
+
+access_dhl_parcel_de_price_rule_users,dhl.parcel.de.price.rule,model_dhl_parcel_de_price_rule,stock.group_stock_user,1,0,0,0
+access_dhl_parcel_de_price_rule_admin,dhl.parcel.de.price.rule,model_dhl_parcel_de_price_rule,stock.group_stock_manager,1,1,1,1

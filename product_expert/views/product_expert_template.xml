@@ -1,0 +1,112 @@
+<odoo>
+    <data>
+    
+        <!-- experts question and answers on product form view  -->
+        <record id="view_product_template_form_custom" model="ir.ui.view">
+		<field name="name">product.template.form.custom</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_only_form_view"/>
+		<field name="arch" type="xml">
+		<notebook position="inside">
+		   <page string="Expert details">
+			<group>
+                            <group>
+                                <field name="product_expert_id"/>
+                                <field name="related_expert_name"/> 
+                            </group>
+                           <group>
+                                <field name="related_expert_description"/>
+                            </group>
+
+                            <group>
+                                <field name="related_expert_image" widget="image" options='{"size": [150, 150]}'/>
+				<field name="img_size"/>
+                            </group>
+
+                            <group>
+                                <field name="related_expert_background_image" widget="image" options='{"size": [150, 150]}'/>
+				<field name="back_img_size"/>
+                            </group>
+                            <notebook>
+                                <page string="Questions &amp; Answers"> 
+                                        <field name="expert_questions_ids">
+                                            <list limit="5">
+                                                <field name="questions"/>
+                                                <field name="answers"/>
+                                            </list>
+                                         </field>
+                                          <field name="product_expert_id" invisible="True"/>
+                                </page>
+                            </notebook>
+			</group>	 
+		   </page>
+		</notebook>
+		</field>
+	</record>
+
+    <!-- product expert action -->
+    <record id="product_expert_action" model="ir.actions.act_window">
+        <field name="name">Expert Details</field>
+        <field name="res_model">product.expert</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+<!-- product expert  profile form view -->
+    <record id="expert_profile_form_view" model="ir.ui.view">
+        <field name="name">expert.profile.form</field>
+        <field name="model">product.expert</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                            <group colspan="4">
+                                <field name="expert_name"/>
+                                <field name="description"/>
+                             </group>
+                        
+                            <group> 
+                                <field name="expert_image" widget="image" style="width:250px;height:250px;" />
+                            </group>
+                            
+                            <group>
+                                <field name="expert_background_image" widget="image" style="width:250px;height:250px;" />
+                            </group> 
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!-- product expert  profile tree view -->
+    <record id="expert_profile_tree_view" model="ir.ui.view">
+        <field name="name">expert.profile.list</field>
+        <field name="model">product.expert</field>
+        <field name="arch" type="xml">
+             <list>
+                <field name="expert_name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+	    
+    <!-- experts questions form view -->
+    <record id="expert_questions_form_view" model="ir.ui.view">
+        <field name="name">expert.questions.form</field>
+        <field name="model">expert.questions</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="questions"/>
+                        <field name="answers"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    </data>
+</odoo>
+

@@ -1,0 +1,548 @@
+ /* Take care of image borders and formatting, client hacks */
+
+ img { max-width: 600px; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic;}
+
+ a img { border: none; }
+
+ table { border-collapse: collapse !important;}
+
+ #outlook a { padding:0; }
+
+ table td { border-collapse: collapse; }
+
+ .ExternalClass * { line-height: 115%; }
+
+ .container-for-gmail-android { min-width: 600px; }
+
+
+
+
+
+ /* General styling */
+
+ * {
+
+     font-family: Helvetica, Arial, sans-serif;
+
+ }
+
+
+
+ body {
+
+     -webkit-font-smoothing: antialiased;
+
+     -webkit-text-size-adjust: none;
+
+     width: 100% !important;
+
+     margin: 0 !important;
+
+     padding: 0 !important;
+
+     height: 100%;
+
+     color: #676767;
+
+ }
+
+
+
+ td {
+
+     font-family: Helvetica, Arial, sans-serif;
+
+     font-size: 14px;
+
+     color: #717171;
+
+     text-align: center;
+
+     line-height: 21px;
+
+ }
+
+
+
+ a {
+
+     color: #e2053a;
+
+     text-decoration: none !important;
+
+ }
+
+
+
+ .pull-left {
+
+     text-align: left;
+
+ }
+
+
+
+ .pull-right {
+
+     text-align: right;
+
+ }
+
+
+
+ .pull-center {
+
+     text-align: center;
+
+ }
+
+
+
+ .header-lg,
+
+ .header-sm {
+
+     font-size: 32px;
+
+     font-weight: 700;
+
+     line-height: normal;
+
+     padding: 35px 0 0;
+
+     color: #525252;
+
+ }
+
+
+
+ .header-sm {
+
+     padding: 5px 0;
+
+     font-size: 18px;
+
+     line-height: 1.3;
+
+ }
+
+
+
+ .content-padding {
+
+     padding: 20px 0 5px;
+
+ }
+
+
+
+ .mobile-header-padding-right {
+
+     width: 290px;
+
+     text-align: right;
+
+     padding-left: 10px;
+
+ }
+
+
+
+ .mobile-header-padding-left {
+
+     width: 290px;
+
+     text-align: left;
+
+     padding-left: 10px;
+
+ }
+
+
+
+ .mobile-header-padding-center {
+
+     width: 290px;
+
+     text-align: center;
+
+     padding-left: 10px;
+
+     padding-right: 10px;
+
+ }
+
+
+
+ .free-text {
+
+     width: 100% !important;
+
+     padding: 0px 0px 0px;
+
+ }
+
+
+
+ .button {
+
+     padding: 30px 0;
+
+ }
+
+
+
+ .mini-block {
+
+     border: 1px solid #e5e5e5;
+
+     border-radius: 5px;
+
+     background-color: #ffffff;
+
+     padding: 15px 15px 15px;
+
+     text-align: left;
+
+     width: 253px;
+
+ }
+
+
+
+ .mini-container-left {
+
+     width: 278px;
+
+     padding: 10px 0 10px 15px;
+
+ }
+
+
+
+ .mini-container-right {
+
+     width: 278px;
+
+     padding: 10px 14px 10px 15px;
+
+ }
+
+
+
+ .product {
+
+     text-align: left;
+
+     vertical-align: top;
+
+     width: 240px;
+
+ }
+
+
+
+ .total-space {
+
+     padding-bottom: 8px;
+
+     display: inline-block;
+
+ }
+
+
+
+ .item-table {
+
+     padding: 40px 15px;
+
+     width: 6000px;
+
+ }
+
+
+
+ .item {
+
+     width: 360px;
+
+ }
+
+
+
+ .mobile-hide-img {
+
+     text-align: left;
+
+     width: 120px;
+
+ }
+
+
+
+ .mobile-hide-img img {
+
+     border: 1px solid #e6e6e6;
+
+     border-radius: 4px;
+
+ }
+
+
+
+ .title-dark {
+
+     text-align: left;
+
+     border-bottom: 1px solid #cccccc;
+
+     color: #525252;
+
+     font-weight: 700;
+
+     padding-bottom: 5px;
+
+ }
+
+
+
+ .subtitle-dark {
+
+     text-align: left;
+
+     color: #525252;
+
+     font-weight: 700;
+
+ }
+
+
+
+ .item-col {
+
+     padding-top: 10px;
+
+     text-align: left;
+
+     vertical-align: top;
+
+ }
+
+
+
+ .item-subcol {
+
+     padding-top: 10px;
+
+     text-align: left;
+
+     vertical-align: top;
+
+ }
+
+
+
+ .force-width-gmail {
+
+     min-width:600px;
+
+     height: 0px !important;
+
+     line-height: 1px !important;
+
+     font-size: 1px !important;
+
+ }
+
+
+
+
+ /* Mobile styles */
+
+ @media only screen and (max-width: 400px) {
+
+
+
+     table[class*="container-for-gmail-android"] {
+
+         min-width: 290px !important;
+
+         width: 100% !important;
+
+     }
+
+
+
+     div[class="force-width-gmail"] {
+
+         display: none !important;
+
+         width: 0 !important;
+
+         height: 0 !important;
+
+     }
+
+    
+
+     p[class="w320"] {
+
+         width: 320px !important;
+
+     }
+
+
+
+     table[class="w320"] {
+
+         width: 320px !important;
+
+     }
+
+
+
+     td[class*="mobile-header-padding-left"] {
+
+         width: 160px !important;
+
+         padding-left: 0 !important;
+
+     }
+
+
+
+     td[class*="mobile-header-padding-right"] {
+
+         width: 160px !important;
+
+         padding-right: 0 !important;
+
+     }
+
+
+
+     td[class="header-lg"] {
+
+         font-size: 24px !important;
+
+         padding-bottom: 5px !important;
+
+     }
+
+
+
+     td[class="content-padding"] {
+
+         padding: 5px 0 5px !important;
+
+     }
+
+
+
+     td[class="button"] {
+
+         padding: 5px 5px 30px !important;
+
+     }
+
+
+
+     td[class*="free-text"] {
+
+         padding: 10px 18px 30px !important;
+
+     }
+
+
+
+     td[class~="mobile-hide-img"] {
+
+         display: none !important;
+
+         height: 0 !important;
+
+         width: 0 !important;
+
+         line-height: 0 !important;
+
+     }
+
+
+
+     td[class~="item"] {
+
+         width: 380px !important;
+
+         vertical-align: top !important;
+
+     }
+
+
+
+     td[class~="quantity"] {
+
+         width: 60px !important;
+
+     }
+
+                                                                               
+
+     td[class~="price"] {
+
+         width: 80px !important;
+
+     }
+
+
+
+     td[class="item-table"] {
+
+         padding: 20px 20px !important;
+
+     }
+
+
+
+     td[class="mini-container-left"],
+
+     td[class="mini-container-right"] {
+
+         padding: 0 15px 15px !important;
+
+         display: block !important;
+
+         width: 290px !important;
+
+     }
+
+
+
+     td[class*="mobile-hide"] {
+
+         display: none !important;
+
+         height: 0 !important;
+
+         width: 0 !important;
+
+         line-height: 0 !important;
+
+     }
+
+
+
+     td[class*="desktop-hide"] {
+
+         overflow: visible !important;
+
+         float: none !important;
+
+         display: table-cell !important;
+
+         line-height:100% !important;
+
+     }
+
+
+
+ }

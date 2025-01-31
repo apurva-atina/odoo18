@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate= "True" id="dhl_parcel_de_delivery_carrier_1" model="delivery.carrier">
+            <field name="name">DHL Parcel DE Domestic</field>
+            <field name="delivery_type">dhl_parcel_de</field>
+            <field name="product_id" ref="product_product_parcel_de_delivery"></field>
+            <field name="dhl_de_product_id" ref="parcel_de_product_V01PAK"/>
+            <field name="packaging_id" ref="parcel_de_custom_packaging"/>
+            <field name="extra_service_price">10</field>
+            <field name="void_shipment">False</field>
+            <field name="uom_id" ref='uom.product_uom_kgm'/>
+            <field name='delivery_uom'>KG</field>
+        </record>
+
+        <record forcecreate= "True" id="dhl_parcel_de_delivery_carrier_2" model="delivery.carrier">
+            <field name="name">DHL Parcel DE International</field>
+            <field name="delivery_type">dhl_parcel_de</field>
+            <field name="product_id" ref="product_product_parcel_de_delivery"></field>
+            <field name="dhl_de_product_id" ref="parcel_de_product_V53WPAK"/>
+            <field name="packaging_id" ref="parcel_de_custom_packaging"/>
+            <field name="extra_service_price">10</field>
+            <field name="is_international">True</field>
+            <field name="void_shipment">False</field>
+            <field name="uom_id" ref='uom.product_uom_kgm'/>
+            <field name='delivery_uom'>KG</field>
+        </record>
+
+        <record forcecreate= "True" id="dhl_parcel_de_delivery_carrier_3" model="delivery.carrier">
+            <field name="name">DHL Parcel DE Return</field>
+            <field name="delivery_type">dhl_parcel_de</field>
+            <field name="product_id" ref="product_product_parcel_de_delivery"></field>
+            <field name="dhl_de_product_id" ref="parcel_de_product_V53WPAK"/>
+            <field name="packaging_id" ref="parcel_de_custom_packaging"/>
+            <field name="extra_service_price">10</field>
+            <field name="is_international">True</field>
+            <field name="void_shipment">False</field>
+            <field name="uom_id" ref='uom.product_uom_kgm'/>
+            <field name='delivery_uom'>KG</field>
+        </record>
+
+    </data>
+</odoo>

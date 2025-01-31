@@ -1,0 +1,10 @@
+.td-price{
+  .text-danger:not(.non_discount_option_price){
+    display: none !important;
+  }
+}
+.a-submit.wk_disable {
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    opacity: .5 !important;
+}

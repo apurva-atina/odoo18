@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences for DHL DE Manifest -->
+        
+        <record id="seq_dhl_de_manifest" model="ir.sequence">
+            <field name="name">DHL Parcel DE Manifest Sequence</field>
+            <field name="code">dhl.parcel.de.manifest</field>
+            <field name="prefix">M</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

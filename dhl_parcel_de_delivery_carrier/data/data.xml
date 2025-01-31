@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2018-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="parcel_de_product_V01PAK" model="dhl.parcel.de.product">
+            <field name="name">DHL Paket(V01PAK)</field>
+            <field name="code">V01PAK</field>
+        </record>
+        <record forcecreate="True" id="parcel_de_product_V53WPAK" model="dhl.parcel.de.product">
+            <field name="name">DHL Paket International(V53WPAK)</field>
+            <field name="code">V53WPAK</field>
+        </record>
+
+        <record forcecreate="True" id="parcel_de_product_V54EPAK" model="dhl.parcel.de.product">
+            <field name="name">DHL Europaket(V54EPAK)</field>
+            <field name="code">V54EPAK</field>
+        </record>
+
+        <record forcecreate="True" id="parcel_de_product_V62WP" model="dhl.parcel.de.product">
+            <field name="name">Warenpost(V62WP)</field>
+            <field name="code">V62WP</field>
+        </record>
+
+        <record forcecreate="True" id="parcel_de_product_V66WPI" model="dhl.parcel.de.product">
+            <field name="name">Warenpost International(V66WPI)</field>
+            <field name="code">V66WPI</field>
+        </record>
+
+
+        
+
+        <record forcecreate="True" id="product_product_parcel_de_delivery" model="product.product">
+            <field name="name">Delivery by DHL Parcel DE</field>
+            <field name="default_code">Delivery</field>
+            <field name="type">service</field>
+            <field name="standard_price">10.0</field>
+            <field name="list_price">10.0</field>
+        </record>
+
+
+        <record forcecreate= "True" id= "dhl_parcel_de_package_type" model= "stock.package.type">
+            <field name='package_carrier_type'>dhl_parcel_de</field>
+            <!-- <field name='qty'>10</field> -->
+            <field name= "name">Packaging For DHL Parcel DE</field>
+            <field name= "shipper_package_code">DHL_PARCEL_DE</field>
+            <field name= "max_weight">35</field>
+            <field name= "height">10</field>
+            <field name= "width">10</field>
+            <field name= "packaging_length">10</field>
+        </record>
+
+
+        <record forcecreate= "True" id="parcel_de_custom_packaging" model="product.packaging">
+            <field name= "name">DHL Parcel DE Custom Packaging</field>
+            <field name= "package_type_id" ref='dhl_parcel_de_package_type'/>
+            <field name= "product_id" ref='product_product_parcel_de_delivery'/>
+            <field name='qty'>1</field>
+        </record>
+
+    </data>
+</odoo>

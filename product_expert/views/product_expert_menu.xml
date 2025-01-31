@@ -1,0 +1,5 @@
+<odoo>
+    <menuitem id="menu_product_experts" name="Product Experts"
+            parent="sale.product_menu_catalog" sequence="40"
+            action="product_expert_action"/>
+</odoo>

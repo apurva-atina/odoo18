@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_expert,access_product_expert,model_product_expert,base.group_user,1,1,1,1
+access_expert_questions,access_expert_questions,model_expert_questions,base.group_user,1,1,1,1
+access_product_template,access_product_template,model_product_template,base.group_user,1,1,1,1
+
+access_product_expert_public,product.expert public access,model_product_expert,base.group_public,1,0,0,0
+access_expert_questions_public,expert.questions public access,model_expert_questions,base.group_public,1,0,0,0
+access_product_template_public,product.template public access,model_product_template,base.group_public,1,0,0,0

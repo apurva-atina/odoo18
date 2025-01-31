@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_image_form_inherit" model="ir.ui.view">
+            <field name="name">product.image.form.inherit</field>
+            <field name="model">product.image</field>
+            <field name="inherit_id" ref="website_sale.view_product_image_form"/>
+            <field name="arch" type="xml">
+		    <xpath expr="//div[hasclass('col-xl-5')]" position="replace">
+                    <div class="col-md-6 col-xl-5">
+                        <label for="name" string="product Name"/>
+                        <h2><field name="name" placeholder="product Name" readonly="1"/></h2>
+                        <label for="image_name" string="Image Name"/>
+                        <h2><field name="image_name" placeholder="Image Name"/></h2>
+                        <label for="video_url" string="Video URL"/><br/>
+                        <field name="video_url"/><br/>
+                        <br/><label for="is_featured" string="Featured Image or Video"/><br/>
+			<field name="is_featured"/>
+                    </div>
+                </xpath>
+<!--                 <xpath expr="//field[@name='video_url']" position="after">
+					<br/><label for="is_featured" string="Featured Image or Video"/><br/>
+						<field name="is_featured"/>
+                </xpath> -->
+            </field>
+        </record>
+    </data>
+</odoo>

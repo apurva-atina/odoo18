@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <data>
+        <record id="dhl_parcel_de_product_packaging_delivery_form" model="ir.ui.view">
+            <field name="name">dhl_parcel_de.product_packaging_delivery_form</field>
+            <field name="model">stock.package.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="odoo_shipping_service_apps.product_packaging_delivery_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='shipper_package_code']" position="after">
+                        <field name="package_base_weight"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+        
+</odoo>

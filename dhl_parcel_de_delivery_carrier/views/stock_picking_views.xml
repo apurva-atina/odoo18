@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2017-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+<odoo>
+    <data>
+
+        <record id="view_picking_withlabel_form_view_dhl_parcel_de" model="ir.ui.view">
+            <field name="name">delivery.stock.picking_withlabel.form.view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="odoo_shipping_service_apps.view_picking_withlabel_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="dhl_de_order_id" readonly="True"/>
+                    <field name="dhl_de_manifest_id" readonly="True" invisible="delivery_type != 'dhl_parcel_de' or picking_type_code == 'incoming'"/>
+                </xpath>
+                <xpath expr="//label[@for='carrier_tracking_ref']" position="before">
+                    <field name="international_ship_no" readonly="True" invisible="delivery_type != 'dhl_parcel_de' or picking_type_code != 'incoming'"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

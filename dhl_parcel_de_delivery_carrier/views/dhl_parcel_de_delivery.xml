@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2018-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE URL <https://store.webkul.com/license.html/> for full copyright and licensing details. -->
+<odoo>
+    <data>
+        <record id="dhl_parcel_de_view_form" model="ir.ui.view">
+            <field name="name">dhl_parcel_de.carrier.form</field>
+            <field name="model">delivery.carrier</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="odoo_shipping_service_apps.view_delivery_carrier_form_inherit_wk_shipping" />
+            <field name="arch" type="xml">
+                <field name= 'delivery_uom' position="attributes">
+                    <attribute name="invisible">"delivery_type == 'dhl_parcel_de'"</attribute>
+                </field>
+                <field name= 'void_shipment' position="attributes">
+                    <attribute name="invisible">"delivery_type == 'dhl_parcel_de'"</attribute>
+                </field>
+                <xpath expr="//group[@name='Delivery Setting']" col='2' position="inside"> 
+                        <field name="is_international"/>
+                        <field name="export_type"/>
+                        <field name="export_description" required="export_type == 'OTHER'" invisible="export_type != 'OTHER'"/>
+                        <field name="shipping_conditions"/>
+                </xpath>
+
+                <xpath expr="//group[@name='Delivery Setting']" col='2' position="after">
+                    <group string="DHL Parcel DE Infomation " invisible="delivery_type != 'dhl_parcel_de'">
+                        <field name="dhl_de_product_id" required="delivery_type == 'dhl_parcel_de'"/>
+                        <field name="endorsement"/>
+                        <!-- <field name="is_cod"/> -->
+                        <!-- <field name="dhl_de_accountRef" required="is_cod == True" invisible="is_cod == False"/> -->
+                        <field name="dimensions_uom"/>
+                        <field name="docFormat" />
+                        <field name="label_size" />
+
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position='inside'>
+                    <page string="DHL Parcel DE Credentials" invisible="delivery_type != 'dhl_parcel_de'">
+                        <group>
+                            <group>
+                                <field name="dhl_de_username" required="delivery_type == 'dhl_parcel_de'"/>
+                                <field name="dhl_de_password" required="delivery_type == 'dhl_parcel_de'" password="True" />
+                                <field name="dhl_de_api_key" required="delivery_type == 'dhl_parcel_de'" />
+                            </group>
+                            <group>
+                                <field name="dhl_de_ekp_number" required="delivery_type == 'dhl_parcel_de'"/>
+                                <field name="dhl_de_contract_participation" required="delivery_type == 'dhl_parcel_de'"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page name="pricing" string="Parcel DE Price Rules" invisible="delivery_type != 'dhl_parcel_de'">
+                        <group name="general">
+                            <field name="dhl_de_price_rule_ids" nolabel="1" colspan="2"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- DHL Parcel DE Products -->
+
+        <record id="dhl_parcel_de_product_view_tree" model="ir.ui.view">
+            <field name="name">dhl_parcel_de.carrier.product.tree</field>
+            <field name="model">dhl.parcel.de.product</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list >
+                    <field name="name"/>
+                    <field name="code"/>
+                    <!-- <field name="contract_procedure"/> -->
+                </list>
+            </field>
+        </record>
+
+        <record id="dhl_parcel_de_product_view_form" model="ir.ui.view">
+            <field name="name">dhl_parcel_de.carrier.product.form</field>
+            <field name="model">dhl.parcel.de.product</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                            </group>
+                            <!-- <group>
+                                <field name="contract_procedure"/>
+                            </group> -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dhl_parcel_de_product">
+            <field name="name">DHL Parcel DE Product</field>
+            <field name="res_model">dhl.parcel.de.product</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- DHL Parcel DE Orders -->
+
+        <record id="dhl_parcel_de_order_view_tree" model="ir.ui.view">
+            <field name="name">dhl.parcel.de.order.tree</field>
+            <field name="model">dhl.parcel.de.order</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list create="false" default_order='create_date desc'>
+                    <field name="name"/>
+                    <field name="shipment_numbers"/>
+                    <field name="create_date"/>
+                    <field name="to_be_menifested"/>
+                    <field name="carrier_id" optional="hide"/>
+                    <field name="picking_id" optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="dhl_parcel_de_order_view_form" model="ir.ui.view">
+            <field name="name">dhl.parcel.de.order.form</field>
+            <field name="model">dhl.parcel.de.order</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <sheet>
+                        <widget name="web_ribbon" title="Yet to Manifest" bg_color="bg-warning" invisible = "to_be_menifested == False"/> 
+                        <widget name="web_ribbon" title="Manifested" bg_color="bg-success" invisible = "to_be_menifested == True" />
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="shipment_numbers"/>
+                                <field name="to_be_menifested" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="carrier_id" readonly="True"/>
+                                <field name="picking_id" readonly="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dhl_parcel_de_orders">
+            <field name="name">DHL Parcel DE Orders</field>
+            <field name="res_model">dhl.parcel.de.order</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <!-- DHL Parcel DE Manifest -->
+
+        <record id="dhl_parcel_de_manifest_view_tree" model="ir.ui.view">
+            <field name="name">dhl.parcel.de.manifest.tree</field>
+            <field name="model">dhl.parcel.de.manifest</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list create="false" default_order='create_date desc'>
+                    <field name="name"/>
+                    <field name="manifest_tracking_ref"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="dhl_parcel_de_manifest_view_form" model="ir.ui.view">
+            <field name="name">dhl.parcel.de.manifest.form</field>
+            <field name="model">dhl.parcel.de.manifest</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="manifest_tracking_ref"/>
+                                <field name="create_date"/>
+                            </group>
+                            <notebook>
+                                <page string="Pickings">
+                                    <field name="picking_ids" > 
+                                        <list>
+                                            <field name="name"/>
+                                            <field name="carrier_tracking_ref"/>
+                                            <field name="carrier_id"/>
+                                            <field name="delivery_type"/>
+                                            <field name="create_date"/>
+                                            <field name="state" optional="show" widget="badge"
+                                                decoration-danger="state=='cancel'"
+                                                decoration-info="state== 'assigned'"
+                                                decoration-muted="state == 'draft'"
+                                                decoration-success="state == 'done'"
+                                                decoration-warning="state not in ('draft','cancel','done','assigned')"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_dhl_parcel_de_manifest">
+            <field name="name">DHL Parcel DE Manifest</field>
+            <field name="res_model">dhl.parcel.de.manifest</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+
+        <menuitem id="dhl_parcel_de_shipping_menu" name="DHL Parcel DE" parent="stock.menu_stock_config_settings"/>
+        <menuitem id="dhl_parcel_de_shipping_product_menu" parent="dhl_parcel_de_shipping_menu" name="Parcel DE Product" action="action_dhl_parcel_de_product"/>
+        <menuitem id="dhl_parcel_de_shipping_orders_menu" parent="dhl_parcel_de_shipping_menu" groups="base.group_no_one" name="Parcel DE Orders" action="action_dhl_parcel_de_orders"/>
+        <menuitem id="dhl_parcel_de_shipping_manifest_menu" parent="dhl_parcel_de_shipping_menu" name="Parcel DE Manifests" action="action_dhl_parcel_de_manifest"/>
+    </data>
+</odoo>

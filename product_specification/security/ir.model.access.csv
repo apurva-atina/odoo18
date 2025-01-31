@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_product_template,access_product_template,model_product_template,base.group_user,1,1,1,1
+access_product_specification_specification,access_product_specification_specification,model_product_specification_specification,base.group_user,1,1,1,1
+access_product_image,access_product_image,model_product_image,base.group_user,1,1,1,1
+access_product_template_attribute_line,access_product_template_attribute_line,model_product_template_attribute_line,base.group_user,1,1,1,1
+
+access_product_template_manager,product.template.manager,model_product_template,base.group_system,1,1,1,1
+access_product_specification_specification_manager,product_specification.specification.manager,model_product_specification_specification,base.group_system,1,1,1,1
+access_product_image_manager,product.image.manager,model_product_image,base.group_system,1,1,1,1
+access_product_template_attribute_line_manager,product.template.attribute.line.manager,model_product_template_attribute_line,base.group_system,1,1,1,1
+
+access_product_template_portal,access.product.template.portal,product.model_product_template,base.group_portal,1,0,0,0
+access_product_specification_specification_portal,access.product_specification.specification.portal,model_product_specification_specification,base.group_portal,1,0,0,0
+access_product_image_portal,access.product.image.portal,model_product_image,base.group_portal,1,0,0,0
+access_product_template_attribute_line_portal,access.product.template.attribute.line.portal,model_product_template_attribute_line,base.group_portal,1,0,0,0
+
+access_product_template_public,product.template public access,model_product_template,base.group_public,1,0,0,0
+access_product_specification_specification_public,product_specification.specification public access,model_product_specification_specification,base.group_public,1,0,0,0
+access_product_image_public,product.image public access,model_product_image,base.group_public,1,0,0,0
+access_product_template_attribute_line_public,product.template.attribute.line public access,model_product_template_attribute_line,base.group_public,1,0,0,0

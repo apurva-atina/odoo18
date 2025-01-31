@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('name', '=', 'mail_template_sale_confirmation'), ('module', '=', 'sale')]" />
+        </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.mail_template_sale_confirmation" model="mail.template">
+        <field name="subject">{{ object.company_id.name }} {{ (object.get_portal_last_transaction().state == 'pending') and 'Pending Order' or 'Order' }} (Ref {{ object.name or 'n/a' }})</field>
+          <field name="body_html" type="html">
+
+<div style="margin: 0px; padding: 0px;text-align:center;" >
+    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+
+    <img src="/sale_order_mail_template/static/images/LO-WR-SHOP.png" style="text-align: center;"/>
+    <h1 style="padding:19pt 0 0 0;color:#525252;font-size:22pt;font-family:Helvetica,sans-serif;"> Alarmierung erfolgreich! </h1>
+        <br/>
+        <t t-set="tx_sudo" t-value="object.get_portal_last_transaction()"/>
+        <t t-if="object.state == 'sale' or (tx_sudo and tx_sudo.state in ('done', 'authorized'))">
+        
+
+            <p style="color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;line-height:15.75pt;text-align:center;">
+                <t  t-out="object.partner_invoice_id.user_id.name or ''">Weber Rescue Italia GmbH</t> von Leitstelle "WEBER RESCUE SHOP" kommen!<br/>
+                Dank für deinen Einsatzauftrag mit der Nummer<span style="font-weight:bold;" t-out="object.name or ''">S00049</span>  vom <span t-out="object.date_order or ''"></span>
+                    , den wir disponieren werden, da du einen Artikel vorbestellt hast!{else}umgehend disponieren werden!
+            </p>
+            <div class="mini-block" style="margin-top: 10px;vertical-align: top;display:inline-block;max-width:35%;border: 1px solid #ccc;padding: 10px;text-align:left;">
+            <h3 style="font-size:13pt;font-family:Helvetica,sans-serif;color:#525252;font-weight:bold;">Alarmierender (Rechnung)</h3>
+                <t  t-out="object.partner_invoice_id.user_id.name or ''">Weber Rescue Italia GmbH</t>
+                <div>
+                <t  t-out="object.partner_invoice_id.name or ''">Christian Giuliani</t><br/>
+                <t t-out="object.partner_invoice_id.street or ''">1201 S Figueroa St</t><br/>
+                <t t-out="object.partner_invoice_id.zip or ''">90015</t><br/>
+                <t t-out="object.partner_invoice_id.city or ''">Los Angeles</t><br/>
+                <t t-out="object.partner_invoice_id.state_id.name or ''">California</t><br/>
+                <t t-out="object.partner_invoice_id.country_id.name or ''">United States</t><br/>
+                <t  t-out="object.partner_invoice_id.vat or ''">IT02595810215</t>
+                </div>
+             </div>
+            <div class="mini-block" style="margin-top: 10px;vertical-align: top;display:inline-block;max-width:35%;border: 1px solid #ccc;padding: 10px;text-align:left;">
+                <h3 style="font-size:13pt;font-family:Helvetica,sans-serif;color:#525252;font-weight:bold;">Einsatzstelle (Lieferung)</h3>
+                <t  t-out="object.partner_shipping_id.user_id.name or ''">Weber Rescue Italia GmbH</t>
+                <div>
+                <t  t-out="object.partner_shipping_id.name or ''">Christian Giuliani</t><br/>
+                <t t-out="object.partner_shipping_id.street or ''">1201 S Figueroa St</t><br/>
+                <t t-out="object.partner_shipping_id.zip or ''">90015</t><br/>
+                <t t-out="object.partner_shipping_id.city or ''">Los Angeles</t><br/>
+                <t t-out="object.partner_shipping_id.state_id.name or ''">California</t><br/>
+                <t t-out="object.partner_shipping_id.country_id.name or ''">United States</t>
+                </div>
+            </div>
+        </t>
+    </p>
+<p style="font-size:12pt;font-family:Aptos,sans-serif;text-align:center;margin:15px 0 20px;line-height:15.75pt;" align="center"><b><span style="color:#525252;font-size:13.5pt;font-family:Helvetica,sans-serif;"><br/>
+                                                        Die folgenden Einsatzmittel wurden alarmiert:</span></b><span style="color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;"></span>
+                                            </p>
+<t t-if="hasattr(object, 'website_id') and object.website_id">
+    <div style="margin: 0px; padding: 0px;">
+        <table style="width:100%;border-collapse:collapse;" cellpadding="0" cellspacing="0" border="0">
+            <tr style="border-bottom: 1px solid #dee2e6;">
+                <td style="width: 150px;text-align: left;"><span style="font-weight:bold;">Products</span></td>
+                <td></td>
+                <td width="15%" align="center"><span style="font-weight:bold;">Quantity</span></td>
+                <td width="20%" align="center"><span style="font-weight:bold;">Price</span></td>
+                <td width="25%" align="right">
+                    <span style="font-weight:bold;">
+                        <t t-if="object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'">
+                            VAT Excl.
+                        </t>
+                        <t t-else="">
+                            VAT Incl.
+                        </t>
+                    </span>
+                </td>
+            
+            </tr>
+        </table>
+        <t t-foreach="object.order_line" t-as="line">
+            <t t-if="(not hasattr(line, 'is_delivery') or not line.is_delivery) and line.display_type in ['line_section', 'line_note']">
+                <table width="100%" style="color: #454748; font-size: 12px; border-collapse: collapse;">
+                    <t t-set="loop_cycle_number" t-value="loop_cycle_number or 0" />
+                    <tr>
+                        <t t-set="loop_cycle_number" t-value="loop_cycle_number + 1" />
+                        <td colspan="4">
+                            <t t-if="line.display_type == 'line_section'">
+                                <span style="font-weight:bold;" t-out="line.name or ''">Taking care of Trees Course</span>
+                            </t>
+                            <t t-elif="line.display_type == 'line_note'">
+                                <i t-out="line.name or ''">Taking care of Trees Course</i>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+            </t>
+            <t t-elif="(not hasattr(line, 'is_delivery') or not line.is_delivery)">
+                <table width="100%" style="color: #454748; font-size: 12px; border-collapse: collapse;">
+                    <t t-set="loop_cycle_number" t-value="loop_cycle_number or 0" />
+                    <tr style="background-color: #ffffff">
+                        <t t-set="loop_cycle_number" t-value="loop_cycle_number + 1" />
+                        <td style="width:90pt;padding:0;">
+                            <img t-attf-src="/web/image/product.product/{{ line.product_id.id }}/image_128" style="width:82.49pt;height:54.74pt;object-fit: contain;" alt="Product image"></img>
+                        </td>
+                        <td align="left" style="width:180pt;font-weight: 600;color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;line-height:15.75pt;" t-out="line.product_id.name or ''"> Taking care of Trees Course</td>
+                        <td width="15%" style="font-size:12pt;font-family:Aptos,sans-serif;text-align:center;margin:0;line-height:15.75pt;" align="center" t-out="line.product_uom_qty or ''">1</td>
+                        <td width="20%" style="font-size:12pt;font-family:Aptos,sans-serif;text-align:center;margin:0;line-height:15.75pt;" align="right" t-out="line.price_unit or ''">1</td>
+                        <td width="25%" style="font-size:12pt;font-family:Aptos,sans-serif;margin:0;line-height:15.75pt;" align="right"><span>
+                        <t t-if="object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'">
+                            <t t-out="format_amount(line.price_reduce_taxexcl, object.currency_id) or ''">$ 10.00</t>
+                        </t>
+                        <t t-else="">
+                            <t t-out="format_amount(line.price_reduce_taxinc, object.currency_id) or ''">$ 10.00</t>
+                        </t>
+                        </span></td>
+                    </tr>
+                </table>
+            </t>
+        </t>
+    </div>
+    <div style="border-top: 1px solid #dee2e6; margin: 5px 0 40px; padding: 0px;display: grid;" t-if="hasattr(object, 'carrier_id') and object.carrier_id">
+        <table width="100%" style="color: #454748; font-size: 12pt; border-spacing: 0px 4px;" align="right">
+            <tr>
+                <td style="width: 60%"/>
+                <td style="width: 30%;" align="right"><span style="font-weight:bold;">Delivery:</span></td>
+                <td style="width: 10%;" align="right" t-out="format_amount(object.amount_delivery, object.currency_id) or ''">$ 0.00</td>
+            </tr>
+        </table>
+        <table width="100%" style="color: #454748; font-size: 12px; border-spacing: 0px 4px;" align="right">
+            <tr>
+                <td style="width: 60%"/>
+                <td style="width: 30%;" align="right"><span style="font-weight:bold;">Total:</span></td>
+                <td style="width: 10%;" align="right" t-out="format_amount(object.amount_total, object.currency_id) or ''">$ 10.00</td>
+            </tr>
+        </table>
+    </div>
+  
+    <div t-if="object.partner_invoice_id" style="padding: 0px;text-align: left;">
+        <table width="100%" style="color: #454748; font-size: 12pt;">
+           
+            <tr>
+                <td style="color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;">
+                    <span style="font-weight:bold;color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;">Payment Method:</span>
+                    <t t-if="tx_sudo.token_id">
+                        <t t-out="tx_sudo.token_id.display_name or ''"></t>
+                    </t>
+                    <t t-else="">
+                        <t t-out="tx_sudo.provider_id.sudo().name or ''"></t>
+                    </t>
+                    (<t t-out="format_amount(tx_sudo.amount, object.currency_id) or ''">$ 10.00</t>)
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div t-if="object.partner_shipping_id and not object.only_services" style="padding: 0px;text-align: left;">
+     
+        <table t-if="hasattr(object, 'carrier_id') and object.carrier_id" width="100%" style="color: #454748; font-size: 12px;">
+            <tr>
+                <td style="color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;">
+                    <span style="font-weight:bold;color:#717171;font-size:10.5pt;font-family:Helvetica,sans-serif;">Shipping Method:</span>
+                    <t t-out="object.carrier_id.name or ''"></t>
+                    <t t-if="object.amount_delivery == 0.0">
+                        (Free)
+                    </t>
+                    <t t-else="">
+                        (<t t-out="format_amount(object.amount_delivery, object.currency_id) or ''">$ 10.00</t>)
+                    </t>
+                </td>
+            </tr>
+          
+        </table>
+    </div>
+</t>
+<div style="margin: 30px 0;text-align: left;color: #717171;font-size:10.1pt;font-family: Aptos,sans-serif;line-height: 1.2;">
+    <span>Sobald sich dein Einsatzmittel auf der Anfahrt zur Einsatzstelle befindet, bekommst du noch einmal eine separate Email mit der Sendungsverfolgung.
+         Wenn du einen digitalen Artikel bestellt hast, findest du den Download nach der Bezahlung hier: <a href="https://www.weber-rescue-shop.com/shop/account/downloads">Meine digitalen Artikel</a> </span>
+        <br/>
+        <span> Unter den folgenden beiden Links kannst du dir außerdem noch einmal unsere <a href="https://www.weber-rescue-shop.com/shop/agb">AGB</a> und das <a href="https://www.weber-rescue-shop.com/shop/widerrufsrecht">Widerrufsrecht</a> durchlesen.
+        Dort erfährst du alles darüber wie du einen nicht passenden Artikel innerhalb von 30 Tagen kostenlos zurück geben kannst. </span>
+        <br/>
+        <span> Bei Rückfragen zu deiner Alarmierung stehen unsere Disponenten jederzeit zur Verfügung! <br/><br/>
+        Grüße aus Güglingen,</span>  <br/>
+        <p>das gesamte WEBER RESCUE Team </p>
+</div>
+
+    <table cellpadding="0" cellspacing="0" style="width:100%;">
+        <tr>
+            <td class="free-text" align="center">
+            <br/><br/>
+            <strong>WEBER RESCUE SHOP GmbH</strong><br/>
+                    Heilbronner Str. 30<br/>
+                    74363 Güglingen<br/>
+                    Deutschland
+                    <br/><br/>
+                    Telefon: +49 (0)7135 71-10911<br/>
+            E-Mail: <a href="mailto:leitstelle@weber-rescue.shop.com">leitstelle@weber-rescue.shop.com></a>
+            <br/><br/>
+            USt-IdNr.: DE308638053<br/>
+            Amtsgericht Stuttgart, HRB 758225 
+            <br/> <br/>
+            </td>                                                                                                                                         
+        </tr>
+        <tr>
+            <td class="free-text" align="center">
+                <a href="https://www.weber-rescue-shop.com/shop/agb"
+                    style="">AGB</a>
+                <span style="color:#848484">|</span>
+                <a href="https://www.weber-rescue-shop.com/shop/versand-und-zahlung"
+                    style="">Versand  Zahlung</a>
+                <span style="color:#848484">|</span>
+                <a href="https://www.weber-rescue-shop.com/shop/datenschutzerklaerung"
+                    style="">Datenschutz</a>
+                <span style="color:#848484">|</span>
+                <a href="https://www.weber-rescue-shop.com/shop/widerrufsrecht"
+                    style="">Widerrufsbelehrung</a>
+                <span style="color:#848484">|</span>
+                <a href="https://www.weber-rescue-shop.com/shop/impressum"
+                    style="">Impressum</a>
+                </td>
+        </tr>
+    </table>
+
+</div></field>
+            <field name="report_template_ids" eval="[(4, ref('sale.action_report_saleorder'))]"/>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.model.data">
+            <value eval="[('name', '=', 'mail_template_sale_confirmation'), ('module', '=', 'sale')]" />
+        </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+</odoo>
+
